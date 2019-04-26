@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+  <head>
+    <meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>天氣預報</title>
+    <!-- Bootstrap -->
+	<link href="css/weather.css" rel="stylesheet" type="text/css"> 
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>  
+	<script type="text/javascript" src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.js"></script>
+	
+ </head>
+  <body>
+  	<!-- body code goes here -->
+	<div class="jumbotron heroImage text-center">
+	  
+		<div class="container">
+			<h1 class="display-4 text-light">天氣預報</h1>
+			
+			<p class="lead text-light">輸入要查詢的<strong class="text-warning">城市名稱</strong></p>
+			<form method="get">
+				<div class="from-group col-md-7 mx-auto">
+					<input id="city" class="form-control" type="text" name="city" placeholder="例如:台北, 台中, 高雄...">
+				</div>
+				
+			</form>
+			
+			<button id="findWeather" type="submit" name="submit" class="btn btn-lg btn-primary mt-3">查 詢</button>
+			
+				<div class="col-8 mx-auto mt-3">
+					
+					<div id="success" class="alert alert-success">查詢成功</div>
+					<div id="fail" class="alert alert-danger">無法找到你查詢的城市!</div>
+					<div id="noCity" class="alert alert-danger">請輸入城市名稱</div>
+			</div>
+		</div>
+		
+	  </div>
+	  
+ <script type="text/javascript">
+		  
+		  $("#findWeather").click(function(event){
+			
+			  event.preventDefault();
+			  
+			  $(".alert").hide();
+			  
+			  if ($("#city").val() != ""){
+				  
+				  $.get("scraper.php?city="+$("#city").val(), function(data){
+					  
+					  if (data == ""){
+						  
+						  $("#fail").fadeIn();
+					  }else{
+						  
+						 $("#success").html(data).fadeIn(); 
+					  }					  
+				  });
+				  
+			  } else{
+				  
+				  $("#noCity").fadeIn();
+				  
+			  }
+			  
+		  });
+	  
+	  </script>
+  
+  </body>
+</html>
